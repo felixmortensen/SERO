@@ -1,5 +1,5 @@
-function fn_par = seri_recon_nii2fit_voxel(nii_fn, xps_fn, mask_fn, reg_str, do_t1, mode, new_nii, opt)
-%function fn_par = seri_recon_nii2fit_voxel(nii_fn, xps_fn, mask_fn, reg_str, do_t1, mode, new_nii, opt)
+function fn_par = sero_recon_nii2fit_voxel(nii_fn, xps_fn, mask_fn, reg_str, do_t1, mode, new_nii, opt)
+%function fn_par = sero_recon_nii2fit_voxel(nii_fn, xps_fn, mask_fn, reg_str, do_t1, mode, new_nii, opt)
 
 
 if isempty(xps_fn) || nargin < 2
