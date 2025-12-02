@@ -6,25 +6,25 @@ snr = 100;
 rng(42)
 
 % Get defailt imaging parameters
-[timeStep, nSamples, z, ar] = sero_sampling_default_image_pars();
+[timeStep, nSamples, z, ar] = sero_srr_default_image_pars();
 
 % create line phantom object
-T = sero_sampling_generate_structure(z, 1);
+T = sero_srr_generate_structure(z, 1);
 
 % Create SERO sampling matrix
-[~, TR,  B,  W ] = sero_sampling_sero_gen1(timeStep, nSamples, ar, z);
+[~, TR,  B,  W ] = sero_srr_sero_gen1(timeStep, nSamples, ar, z);
 
 TR(isnan(TR)) = 0;
 
 
 % Get signal
-S   = sero_sampling_fit2data(T, TR,  B,  1, W);
+S   = sero_srr_fit2data(T, TR,  B,  1, W);
 
 % Add noise to signal 
-N   = sero_sampling_add_noise(S,  snr);
+N   = sero_srr_add_noise(S,  snr);
 
 % do fit
-m  = sero_recon_data2fit_1d_reg_v2(N,  TR,  B,  W,  1, 1e-2, 1);
+m  = sero_srr_data2fit_1d_reg_v2(N,  TR,  B,  W,  1, 1e-2, 1);
 
 
 %% Plot result
