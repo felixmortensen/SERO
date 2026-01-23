@@ -14,3 +14,4 @@ https://github.com/filip-szczepankiewicz/safe_pns_prediction
 
 https://github.com/filip-szczepankiewicz/fix_matlab
 
+https://github.com/LarsonLab/MRI-education-resources/blob/main/Physics/bloch_rotate.m
