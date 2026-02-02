@@ -17,7 +17,7 @@ If you use this repository, please include a reference to
 
 F. Mortensen, J. Jurek, J. Sjölund, et al., “ Toward Super-Resolution Reconstruction of Diffusion–Relaxation MRI Using Slice Excitation With Random Overlap (SERO),” Magnetic Resonance in Medicine (2026): 1–14, https://doi.org/10.1002/mrm.70282.
 
-Requires:
+### Requires:
 
 https://github.com/pulseq/pulseq
 
@@ -34,5 +34,6 @@ https://github.com/filip-szczepankiewicz/fix_matlab
 https://github.com/LarsonLab/MRI-education-resources/blob/main/Physics/bloch_rotate.m
 
 Digital brain phantom comes from "BigBrain-MR: a new digital phantom with anatomically-realistic magnetic resonance properties at 100-µm resolution for magnetic resonance methods development" by Sainz Martinez et al.
+
 
 
