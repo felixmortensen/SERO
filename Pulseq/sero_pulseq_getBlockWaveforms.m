@@ -67,5 +67,5 @@ if ~isempty(tfp_excitation) && ~isempty(tfp_refocusing)
         rf(ti>rfTimes(i)) = (-1)^(i+1);
     end
 
-    rf(ti<tfp_excitation(1,1)) = nan;
+    rf(ti<tfp_excitation(1,1)) = 1;
 end
