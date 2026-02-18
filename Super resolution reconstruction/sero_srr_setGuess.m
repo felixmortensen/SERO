@@ -27,7 +27,7 @@ for i = 1:z
     b   = B(ind);
 
     try
-        x0(i,:) = sero_srr_data2fit_1d(s, tr, b, 1, do_t1);
+        x0(i,:) = sero_srr_data2fit_1d_reg_v2(s, tr, b, 1, do_t1, 0, 0);
     catch
     end
 end
