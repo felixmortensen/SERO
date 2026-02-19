@@ -1,4 +1,4 @@
-function fn_par = sero_srr_nii2fit(nii_fn, xps_fn, mask_fn, reg_str, do_t1, mode, new_nii, opt)
+function fn_par = sero_srr_nii2fit(nii_fn, xps_fn, mask_fn, reg_str, do_t1, do_v, mode, new_nii, fast_recon, opt)
 % function fn_par = sero_srr_nii2fit(nii_fn, xps_fn, mask_fn, reg_str, do_t1, mode, opt)
 
 
@@ -18,7 +18,16 @@ if isempty(do_t1) || nargin < 5
     do_t1 = 1;
 end
 
-if nargin < 8
+if isempty(do_v) || nargin < 6
+    do_v = 1;
+end
+
+if nargin < 9
+    fast_recon = 1;
+end
+
+
+if nargin < 10
     opt = sero_srr_data2fit_opt();
 end
 
@@ -58,8 +67,17 @@ n_col = sum(M,3);
 n     = sum(n_col(:)>0);
 
 c = 1;
+
+if fast_recon
+    range = ceil(siz(2)/2);
+    disp('Reconstructing center slice!')
+else
+    range = 1:siz(2);
+    disp('Reconstructing full volume!')
+end
+
 for i = 1:siz(1)
-    for j = 1:siz(2)
+    for j = range
 
         m = squeeze(M(i,j,:));
 
@@ -72,12 +90,12 @@ for i = 1:siz(1)
         S = double(abs(squeeze(I(i,j,:))));
 
         tic
-        x0 = sero_srr_setGuess(S, TR, B, W, do_t1);
+        x0 = sero_srr_setGuess(S, TR, B, W, do_t1, do_v);
         x0(:,1) = x0(:,1)/(max(x0(:,1)) + eps); %avoid division with zero
         toc
         
         tic
-        T = sero_srr_data2fit_1d_reg_v2(S, TR, B, W, do_t1, reg_str, mode, x0, opt);
+        T = sero_srr_data2fit_1d_reg_v2(S, TR, B, W, do_t1, do_v, reg_str, mode, x0, opt);
         toc
 
         for k = 1:size(P,4)

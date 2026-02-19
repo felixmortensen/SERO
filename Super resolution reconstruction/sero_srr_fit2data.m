@@ -1,8 +1,12 @@
-function S = sero_srr_fit2data(T, tr, b, do_t1, W, te)
+function S = sero_srr_fit2data(T, tr, b, do_t1, do_v, W, te)
 % function S = sero_srr_fit2data(T, tr, b, do_t1, W, te)
 
-if nargin < 6
+if nargin < 7
     te = [];
+end
+
+if ~do_v
+    T(:,4) = 0;
 end
 
 switch do_t1

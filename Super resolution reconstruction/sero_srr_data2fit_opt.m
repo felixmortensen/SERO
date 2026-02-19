@@ -16,4 +16,4 @@ opt.lg = [0.8  0.7    1   0.0 ];
 opt.ug = [1.2  2    3   0.1 ];
 
 opt.lambda.prost = [1 3 3 4];
-opt.lambda.brain = [1 2 3 5];
+opt.lambda.brain = [1 1 2 4];

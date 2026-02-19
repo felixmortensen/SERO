@@ -1,33 +1,33 @@
-function m = sero_srr_data2fit_1d_reg_v2(S, tr, b, w, do_t1, reg_str, mode, x0, opt, wght, te)
+function m = sero_srr_data2fit_1d_reg_v2(S, tr, b, w, do_t1, do_v, reg_str, mode, x0, opt, wght, te)
     % function m = sero_srr_data2fit_1d(S, tr, b, w, do_t1, opt, x0, wght, te)
     
-    if nargin < 6 || isempty(reg_str)
+    if nargin < 7 || isempty(reg_str)
         % Define the regularization parameter
         reg_str=0;
     end
 
-    if nargin < 7 || isempty(mode)
+    if nargin < 8 || isempty(mode)
         %choose regularisation mode
         mode = 1;
     end
 
-    if nargin < 9 || isempty(opt)
+    if nargin < 10 || isempty(opt)
         opt = sero_srr_data2fit_opt();
     end
 
-    if nargin < 8 || isempty(x0)
+    if nargin < 9 || isempty(x0)
         do_guess = 1;
     else
         do_guess = 0;
     end
 
-    if nargin < 10 || isempty(wght)
+    if nargin < 11 || isempty(wght)
         wght = sero_srr_weight_f(tr);
         wghtInput = wght;
         wghtInput(end + 1) = 1;
     end
 
-    if nargin < 11 || isempty(te)
+    if nargin < 12 || isempty(te)
         te = [];
     end
 
@@ -60,6 +60,12 @@ function m = sero_srr_data2fit_1d_reg_v2(S, tr, b, w, do_t1, reg_str, mode, x0, 
         ub(:, 3) = 0;
     end
 
+    if ~do_v
+        x0(:, 4) = 0;
+        lb(:, 4) = 0;
+        ub(:, 4) = 0;
+    end
+
     m = lsqcurvefit(@par2signal, x0, [], input.*wghtInput, lb, ub, opt.lsq);
 
     m(:, 1) = m(:, 1) * nrm;
@@ -68,10 +74,14 @@ function m = sero_srr_data2fit_1d_reg_v2(S, tr, b, w, do_t1, reg_str, mode, x0, 
         m(:, 3) = nan;
     end
 
+    if ~do_v
+        m(:, 4) = nan;
+    end
+
  
     function S = par2signal(p, varargin)
         % Compute the base model signal
-        S = sero_srr_fit2data(p, tr, b, do_t1, w, te) .* wght;
+        S = sero_srr_fit2data(p, tr, b, do_t1, do_v, w, te) .* wght;
 
         switch mode
             case 0
